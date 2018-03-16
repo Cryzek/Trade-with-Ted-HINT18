@@ -25,9 +25,9 @@ SECRET_KEY = 'c7vc5r^(@vxwof65$e1oeo22v8+xmem9lf0ne(u@u^dc2y^8l_'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['172.20.18.12','127.0.0.1','localhost:8000']
 
-
+LOGIN_REDIRECT_URL = '/profiles/home/'
 # Application definition
 
 INSTALLED_APPS = [

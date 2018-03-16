@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+</head>
+<body>
+    <h1>Welcome to Broker Portal </h1>
+    {% if user.is_authenticated %}
+      <h2>Hi !! {{ user.transaction.name }}</h2>  
+	  
+    <p><a href="/logout">Logout</a></p>
+    {% else %}
+    <p><a href="/login">Login</a></p>
+    {% endif %}
+</body>
+</html>
