@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import JsonResponse
 from nltk import *
 from requests import get
 import numpy as np
@@ -11,12 +12,10 @@ def profile(request):
 	return render(request,'trader/index.html')
 
 def handleCommand(request):
-    text = request.GET.get("text")
-    text = text.lower()
-    print(text)
-    do_action(text)
+    text=request.GET.get("text").lower()
+    retval=do_action(text)
 
-    return render(request,'trader/index.html')
+    return JsonResponse(retval)
 
 #Utility Functions
 def getData(url):
@@ -96,6 +95,9 @@ def buy_now(text):
         what=match[0]
 
     print(quantity,what,mode)
+    
+    return {'quantity': quantity, 'what': what, 'mode': mode}
+
 
 def buy_later(text):
     pattern=r"\d+\s\bhours\b|\d+\s\bminutes\b|\d+\s\bminute\b|\d+\s\bhour\b"
@@ -253,7 +255,7 @@ def do_action(text,type='relation', corpus='webbase'):
     possibles.update(locals())
     caller=possibles.get(func[action])
 
-    caller(text)
+    return caller(text)
 
 #Get all predefined actions
 def get_from_file(filename):
