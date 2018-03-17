@@ -18,65 +18,127 @@
     <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/TweenMax.min.js' %}"></script>
-<body>
-    <ul id="slide-out" class="side-nav fixed">
-        <a href="#" data-activates="slide-out" class="waves-effect waves-light flex-row flex-center-both hide-on-large-only" id="nav-close">
-            <i class="material-icons">close</i>
-        </a>
-        <li>
-            <div class="user-view flex-col flex-center-both">
-                <!-- <img src='<%=userImage%>'> -->
-                <span class="name">Trade With Ted</span>
-            </div>
-        </li>
-        <li>
-            <a href="/question" class="waves-effect waves-light">
-                <i class="material-icons">assignment</i> Assets
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <body>
+        <ul id="slide-out" class="side-nav fixed">
+            <a href="#" data-activates="slide-out" class="waves-effect waves-light flex-row flex-center-both hide-on-large-only" id="nav-close">
+                <i class="material-icons">close</i>
             </a>
-        </li>
-        <li>
-            <a href="/leaderboard" class="waves-effect waves-light">
-                <i class="material-icons">format_list_numbered</i> Profile
-            </a>
-        </li>
-        <li>
-            <a href="/logout" class="waves-effect waves-light">
-                <i class="material-icons">power_settings_new</i> Logout
-            </a>
-        </li>
-    </ul>
-
-    <header class="flex-row flex-center-both">
-        <a href="#" data-activates="slide-out" class="waves-effect waves-light flex-row flex-center-both hide-on-large-only" id="nav-open">
-            <i class="material-icons">menu</i>
-        </a>
-        <span class="site-title"><a href="index.html">Trade With Ted</a></span>
-        <!-- <span class="title"><a href="/"><img src="images/topcoder-logo.png"></a></span> -->
-    </header>
-
-    <main class="flex-col flex-center-both">
-
-        <div class="wrapper flex-col flex-center-cross">
-            <div id="home" class="app-container flex-col flex-center-both">
-                <div class="app-card flex-col flex-center-cross">
-                    Hi I'm Ted
+            <li>
+                <div class="user-view flex-col flex-center-both">
+                    <!-- <img src='<%=userImage%>'> -->
+                    <span class="name">Trade With Ted</span>
                 </div>
-            </div>
-        </div>
-    </main>
+            </li>
+            <li>
+                <a href="/question" class="waves-effect waves-light">
+                    <i class="material-icons">assignment</i> Assets
+                </a>
+            </li>
+            <li>
+                <a href="/leaderboard" class="waves-effect waves-light">
+                    <i class="material-icons">format_list_numbered</i> Profile
+                </a>
+            </li>
+            <li>
+                <a href="/logout" class="waves-effect waves-light">
+                    <i class="material-icons">power_settings_new</i> Logout
+                </a>
+            </li>
+        </ul>
 
-    <div id="voice-widget-container">
-        <div id="voice-text-container" class="flex-row flex-center-both">
-            <p></p>
-        </div>
-        <div id="voice-control-button-container">
-            <button class="btn-floating btn-large waves-effect waves-light fixed">
-                <i class="medium material-icons">mic</i>
-            </button>
-        </div>
+        <header class="flex-row flex-center-both">
+            <a href="#" data-activates="slide-out" class="waves-effect waves-light flex-row flex-center-both hide-on-large-only" id="nav-open">
+                <i class="material-icons">menu</i>
+            </a>
+            <span class="site-title"><a href="index.html">Trade With Ted</a></span>
+            <!-- <span class="title"><a href="/"><img src="images/topcoder-logo.png"></a></span> -->
+        </header>
+
+        <main class="flex-col flex-center-both">
+
+            <div class="wrapper flex-col flex-center-cross">
+                <div id="home" class="app-container flex-col flex-center-both">
+                 <div id="myDiv"></div>
+                 <script type="text/javascript">
+                    Plotly.d3.csv('https://raw.githubusercontent.com/plotly/datasets/master/finance-charts-apple.csv', function(err, rows){
+                      
+                      function unpack(rows, key) {
+                        return rows.map(function(row) { 
+                          return row[key]; 
+                      });
+                    }
+                    
+                    var trace = {
+                        x:['2018-03-17 00:50:00','2018-03-17 00:55:00'], 
+                        close: [43950.03,43991.96], 
+                        high: [43992.34,44022.23],  
+                        low: [41385.71,43949.58], 
+                        open:[ 41397.09,44016.17],
+
+  // cutomise colors 
+  increasing: {line: {color: 'black'}},
+  decreasing: {line: {color: 'red'}},
+  
+  type: 'candlestick', 
+  xaxis: 'x', 
+  yaxis: 'y'
+};
+
+var data = [trace];
+
+var layout = {
+  dragmode: 'zoom', 
+  showlegend: false, 
+  xaxis: {
+    autorange: true, 
+    title: 'Date',
+    rangeselector: {
+      x: 0,
+      y: 1.2,
+      xanchor: 'left',
+      font: {size:8},
+      buttons: [{
+        step: 'month',
+        stepmode: 'backward',
+        count: 1,
+        label: '1 month'
+    }, {
+        step: 'month',
+        stepmode: 'backward',
+        count: 6,
+        label: '6 months'
+    }, {
+        step: 'all',
+        label: 'All dates'
+    }]
+}
+}, 
+yaxis: {
+    autorange: true, 
+}
+};
+
+Plotly.plot('myDiv', data, layout); 
+});
+</script>
+
+</div>
+</div>
+</main>
+
+<div id="voice-widget-container">
+    <div id="voice-text-container" class="flex-row flex-center-both">
+        <p></p>
     </div>
-    
-    <!-- Scripts that require the DOM to be loaded. So just to be safe loaded these here. -->
-    <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+    <div id="voice-control-button-container">
+        <button class="btn-floating btn-large waves-effect waves-light fixed">
+            <i class="medium material-icons">mic</i>
+        </button>
+    </div>
+</div>
+
+<!-- Scripts that require the DOM to be loaded. So just to be safe loaded these here. -->
+<script type="text/javascript" src="{% static 'js/main.js' %}"></script>
 </body>
 </html>
