@@ -67,19 +67,7 @@
 
         <div class="wrapper flex-col flex-center-cross">
             <div id="home" class="app-container flex-col flex-center-both">
-                <div class="user-stats-container flex-row">
-                    <div id="" class="user-stats">
-                    </div>
-                    <div id="" class="user-stats">
-                    </div>
-                </div>
-                <div class="stats-assets-divider"></div>
-                <div class="stats-assets-container flex-row">
-                    <div id="" class="user-asset">
-                    </div>
-                    <div id="" class="user-asset">
-                    </div>
-                </div>
+                <div id="myDiv"></div>
             </div>
         </div>
     </main>
@@ -95,7 +83,8 @@
         </div>
     </div>
 
-    <!-- Scripts that require the DOM to be loaded. So just to be safe loaded these here. -->
-    <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+<!-- Scripts that require the DOM to be loaded. So just to be safe loaded these here. -->
+<script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/plotgraph.js' %}"></script>
 </body>
 </html>
