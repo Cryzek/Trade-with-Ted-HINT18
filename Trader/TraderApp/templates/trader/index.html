@@ -19,47 +19,40 @@
     <script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/TweenMax.min.js' %}"></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    <body>
-        <ul id="slide-out" class="side-nav fixed">
-            <a href="#" data-activates="slide-out" class="waves-effect waves-light flex-row flex-center-both hide-on-large-only" id="nav-close">
-                <i class="material-icons">close</i>
+</head>
+<body style="opacity: 0" >
+    <ul id="slide-out" class="side-nav fixed">
+        <a href="#" data-activates="slide-out" class="waves-effect waves-light flex-row flex-center-both hide-on-large-only" id="nav-close">
+            <i class="material-icons">close</i>
+        </a>
+        <li>
+            <div class="user-view flex-col flex-center-both">
+                <!-- <img src='<%=userImage%>'> -->
+                <span class="name">Trader Ted</span>
+            </div>
+        </li>
+        <li>
+            <a href="/question" class="waves-effect waves-light">
+                <i class="material-icons">assignment</i> Assets
             </a>
-            <li>
-                <div class="user-view flex-col flex-center-both">
-                    <!-- <img src='<%=userImage%>'> -->
-                    <span class="name">Trade With Ted</span>
-                </div>
-            </li>
-            <li>
-                <a href="/question" class="waves-effect waves-light">
-                    <i class="material-icons">assignment</i> Assets
-                </a>
-            </li>
-            <li>
-                <a href="/leaderboard" class="waves-effect waves-light">
-                    <i class="material-icons">format_list_numbered</i> Profile
-                </a>
-            </li>
-            <li>
-                <a href="/logout" class="waves-effect waves-light">
-                    <i class="material-icons">power_settings_new</i> Logout
-                </a>
-            </li>
-        </ul>
-
-        <header class="flex-row flex-center-both">
-            <a href="#" data-activates="slide-out" class="waves-effect waves-light flex-row flex-center-both hide-on-large-only" id="nav-open">
-                <i class="material-icons">menu</i>
+        </li>
+        <li>
+            <a href="/leaderboard" class="waves-effect waves-light">
+                <i class="material-icons">format_list_numbered</i> Profile
             </a>
-            <span class="site-title"><a href="index.html">Trade With Ted</a></span>
-            <!-- <span class="title"><a href="/"><img src="images/topcoder-logo.png"></a></span> -->
-        </header>
+        </li>
+        <li>
+            <a href="/logout" class="waves-effect waves-light">
+                <i class="material-icons">power_settings_new</i> Logout
+            </a>
+        </li>
+    </ul>
 
     <header class="flex-row flex-center-both">
         <a href="#" data-activates="slide-out" class="waves-effect waves-light flex-row flex-center-both hide-on-large-only" id="nav-open">
             <i class="material-icons">menu</i>
         </a>
-        <span class="site-title"><a href="index.html">Trade With Ted</a></span>
+        <span class="site-title"><a href="/profiles/home">Trader Ted</a></span>
         <!-- <span class="title"><a href="/"><img src="images/topcoder-logo.png"></a></span> -->
     </header>
 

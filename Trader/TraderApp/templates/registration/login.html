@@ -1,21 +1,49 @@
-<!DOCTYPE html>
-<html>
+{% load staticfiles %}
+
+<!doctype html>
+<html lang="en">
 <head>
-    <title>Login</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ted - The Trader</title>
+
+    <!--Import Google Icon Font-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="{% static 'css/materialize.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+    <!-- Scripts -->
+    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/TweenMax.min.js' %}"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 </head>
-<body>
-    <h2>Login Page</h2>
-    <form method="POST">
-        {% csrf_token %}
-        <p>
-            <label>Username</label>
-            <input type="text" name="username">
-        </p>
-        <p>
-            <label>Password</label>
-            <input type="password" name="password">
-        </p>
-        <button type="submit">Login</button>
-    </form>
+
+<body id="login">
+
+    <header class="flex-row flex-center-both">
+        <span class="site-title"><a href="/profiles/home">Trader Ted</a></span>
+        <!-- <span class="title"><a href="/"><img src="images/topcoder-logo.png"></a></span> -->
+    </header>
+
+    <main class="flex-col flex-center-both">
+        <div class="wrapper flex-col flex-center-both">
+            <form method="POST" id="login-form" class="flex-col flex-center-both">
+                {% csrf_token %}
+                <div class="input-field">
+                    <label for="username">Username</label>
+                    <input id="username" type="text" name="username">
+                </div>
+                <div class="input-field">
+                    <label for="password">Password</label>
+                    <input id="passwrod" type="password" name="password">
+                </div>
+                <button class="btn" type="submit">Login</button>
+            </form>
+        </div>
+    </main>
+
 </body>
 </html>

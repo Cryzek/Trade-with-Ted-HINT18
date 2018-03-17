@@ -16,7 +16,12 @@ var two_line = /\n\n/g,
     first_char = /\S/;  
 
 /* Global DOM elements. Set after init*/
-var $startButton,
+var $body,
+    $header,
+    $main,
+    $sideNav,
+    $voiceWidgetContainer,
+    $startButton,
     $voiceText,
     $navToggleClose;
 
@@ -27,15 +32,56 @@ function init() {
 
     initMaterialize();
 
+    loadPage();
+
     initMicrophone();
 
     initEvents();
 }
 
 function initElements() {
-    $startButton = $("#voice-control-button-container button");
-    $voiceText = $("#voice-text-container p");
-    $navToggleClose = $("#nav-close");
+    $body = $("body");
+    $header = $body.find("header");
+    $main = $body.find("main");
+    $sideNav = $body.find(".side-nav");
+    $voiceWidgetContainer = $body.find("#voice-widget-container");
+    
+    $startButton = $voiceWidgetContainer.find("#voice-control-button-container button");
+    
+    $voiceText = $voiceWidgetContainer.find("#voice-text-container p");
+    
+    $navToggleClose = $sideNav.find("#nav-close");
+};
+
+function initMaterialize() {
+    $("#nav-open").sideNav({
+        menuWidth: NAVBAR_WIDTH,
+        draggable: true
+    });
+};
+
+function loadPage() {
+    var $userStatsContainer = $main.find(".user-stats-container"),
+        $statsAssetsDivider = $main.find(".stats-assets-divider"),
+        $statsAssetsContainer = $main.find(".stats-assets-container");
+
+    var arr = [$userStatsContainer, 
+                $statsAssetsDivider, 
+                $statsAssetsContainer,
+                $voiceWidgetContainer];
+
+    var tl = new TimelineMax();
+    tl
+    .to($body, 1, {
+        opacity: 1
+    })
+    .staggerFromTo(arr, 0.75, {
+        opacity: 0,
+        y: 50
+    }, {
+        opacity: 1,
+        y: 0
+    }, 0.1);
 }
 
 function initMicrophone() {
@@ -127,13 +173,13 @@ function initMicrophone() {
             Materialize.toast(s, 1000);
         }
     }
-}
+};
 
 function sendCommand(message) {
     console.log(message);
     if(!message) return;
     $.get("/api/decodeCommand", {text: message}, handleCommandDecode);
-}
+};
 
 function handleCommandDecode(response) {
     var data = response;
@@ -142,43 +188,6 @@ function handleCommandDecode(response) {
     if(data.open) {
         plotGraph(data);
     }
-}
-
-function initMaterialize() {
-    $("#nav-open").sideNav({
-        menuWidth: NAVBAR_WIDTH,
-        draggable: true
-    });
-};
-
-function initEvents() {
-
-    $navToggleClose.on("click", closeNavBar);
-
-    $startButton.on("click", startRecording);
-};
-
-function closeNavBar(event) {
-    event.preventDefault();
-    // $(this).sideNav("hide");
-    $("#sidenav-overlay").trigger("click");    
-}
-
-function startRecording(event) {
-    if (recognizing) {
-        sendCommand(final_transcript);
-        console.log(final_transcript);
-        recognition.stop();
-        $startButton.removeClass("recording");
-        return;
-    }
-
-    $startButton.addClass("recording");
-    final_transcript = '';
-    recognition.lang = "en-US";
-    recognition.start();
-    ignore_onend = false;
-    start_timestamp = event.timeStamp;
 };
 
 function plotGraph(response) {
@@ -245,4 +254,35 @@ function plotGraph(response) {
 
         Plotly.plot('div-for-graph', data, layout);
     });
+};
+
+function initEvents() {
+
+    $navToggleClose.on("click", closeNavBar);
+
+    $startButton.on("click", startRecording);
+};
+
+/* Functions used as event handlers*/
+function closeNavBar(event) {
+    event.preventDefault();
+    // $(this).sideNav("hide");
+    $("#sidenav-overlay").trigger("click");    
 }
+
+function startRecording(event) {
+    if (recognizing) {
+        sendCommand(final_transcript);
+        console.log(final_transcript);
+        recognition.stop();
+        $startButton.removeClass("recording");
+        return;
+    }
+
+    $startButton.addClass("recording");
+    final_transcript = '';
+    recognition.lang = "en-US";
+    recognition.start();
+    ignore_onend = false;
+    start_timestamp = event.timeStamp;
+};
