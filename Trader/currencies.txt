@@ -1,0 +1,5 @@
+ripple XRP
+ethereum ETH
+ether ETH
+bitcoin BTC
+bitcoins BTC
