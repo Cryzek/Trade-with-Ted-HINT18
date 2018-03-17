@@ -7,5 +7,6 @@ urlpatterns = [
 	url(r'^profiles/home/$', views.profile),	
 	url(r'^login/$', auth_views.login, name='login'),
     url(r'^logout/$', auth_views.logout, name='logout'),
+    url(r'^api/decodeCommand', views.handleCommand)
 
 ]

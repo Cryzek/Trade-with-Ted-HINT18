@@ -129,18 +129,11 @@ function initMicrophone() {
 
 function sendCommand(message) {
     console.log(message);
-    $.ajax({
-        url: "172.20.61.27:8000/",
-        method: "POST",
-        data: message,
-    })
-    .done(function(response) {
-        console.log(response);
-    });
+    $.get("/api/decodeCommand", {text: message}, handleCommandDecode);
 }
 
 function handleCommandDecode(response) {
-
+    console.log(response);
 }
 
 function initMaterialize() {
