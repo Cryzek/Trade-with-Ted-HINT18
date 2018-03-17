@@ -27,7 +27,7 @@
             <li>
                 <div class="user-view flex-col flex-center-both">
                     <!-- <img src='<%=userImage%>'> -->
-                    <span class="name">Ted</span>
+                    <span class="name">Trade With Ted</span>
                 </div>
             </li>
             <li>
@@ -59,7 +59,7 @@
         <a href="#" data-activates="slide-out" class="waves-effect waves-light flex-row flex-center-both hide-on-large-only" id="nav-open">
             <i class="material-icons">menu</i>
         </a>
-        <span class="site-title"><a href="index.html">Ted</a></span>
+        <span class="site-title"><a href="index.html">Trade With Ted</a></span>
         <!-- <span class="title"><a href="/"><img src="images/topcoder-logo.png"></a></span> -->
     </header>
 
@@ -69,10 +69,25 @@
             <div id="home" class="app-container flex-col">
                 <div class="user-stats-container flex-row">
                     <div id="" class="app-card user-stats">
+                        <i class="material-icons">filter_9_plus</i>
+                        <span class="flex-col">
+                            <p class="stat-value">10</p>
+                            <p class="stat-message">Assets in hold</p>
+                        </span>
                     </div>
                     <div id="" class="app-card user-stats">
+                        <i class="material-icons">attach_money</i>
+                        <span class="flex-col">
+                            <p class="stat-value">1000.3</p>
+                            <p class="stat-message">Net Value</p>
+                        </span>
                     </div>
                     <div id="" class="app-card user-stats">
+                        <i class="material-icons">iso</i>
+                        <span class="flex-col">
+                            <p class="stat-value">100</p>
+                            <p class="stat-message">Net Profit/Loss</p>
+                        </span>
                     </div>
                     <!-- <div id="" class="app-card user-stats">
                     </div> -->
@@ -80,10 +95,18 @@
                 <div class="stats-assets-divider"></div>
                 <div class="stats-assets-container flex-row">
                     <div id="" class="app-card user-asset">
+                        <span class="asset-image">
+                            <i class="material-icons large">monetization_on</i>
+                        </span>
+                        <p class="asset-name">Ripple (XRP)</p>
+                        <p class="current-price">0.89$</p>
+                        <p class="change">-9% (24h)</p>
                     </div>
                     <div id="" class="app-card user-asset">
                     </div>
                 </div>
+                
+                <div id="div-for-graph"></div>
             </div>
         </div>
     </main>

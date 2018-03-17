@@ -15,14 +15,42 @@
         margin: 8px 16px;
         width: calc(100%/4 - 32px);
         height: auto;
+        border-radius: 2px;
 
         &:hover {
-            box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
+            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
         }
     }
 
     .user-stats {
-        height: 160px;
+        @include flexRow;
+        @include flexCenterMain;
+        @include flexCenterCross;
+        height: 120px;
+        padding: 32px 0 32px 0px;
+
+        i {
+            font-size: 2.7em;
+            margin-right: 8px;
+            margin-left: -32px;
+            color: #383838;
+        }
+
+        p {
+            width: 100%;
+            text-align: center;
+        }
+
+        .stat-value {
+            flex-grow: 2;
+            font-size: 1.6em;
+            color: #383838;
+        }
+
+        .stat-message {
+            font-size: 0.8em;
+            color: #98999c;
+        }
     }
 
     .user-assets-container {
@@ -30,14 +58,20 @@
     }
 
     .user-asset {
-        height: 240px;
+        @include flexCol;
+        @include flexCenterMain;
+        @include flexCenterCross;
+        min-width: 200px;
+        height: 200px;
+        padding: 8px;
     }
 
     .stats-assets-divider {
         display: block;
         width: 75%;
-        height: 8px;
-        margin: 4px auto;
-        
+        height: 4px;
+        margin: 12px auto;
+        border-radius: 8px;
+        background-color: rgba(255, 255, 255, 0.5);
     }
 }
