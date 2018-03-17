@@ -27,7 +27,7 @@
             <li>
                 <div class="user-view flex-col flex-center-both">
                     <!-- <img src='<%=userImage%>'> -->
-                    <span class="name">Trade With Ted</span>
+                    <span class="name">Ted</span>
                 </div>
             </li>
             <li>
@@ -55,12 +55,37 @@
             <!-- <span class="title"><a href="/"><img src="images/topcoder-logo.png"></a></span> -->
         </header>
 
-        <main class="flex-col flex-center-both">
+    <header class="flex-row flex-center-both">
+        <a href="#" data-activates="slide-out" class="waves-effect waves-light flex-row flex-center-both hide-on-large-only" id="nav-open">
+            <i class="material-icons">menu</i>
+        </a>
+        <span class="site-title"><a href="index.html">Ted</a></span>
+        <!-- <span class="title"><a href="/"><img src="images/topcoder-logo.png"></a></span> -->
+    </header>
 
-            <div class="wrapper flex-col flex-center-cross">
-                <div id="home" class="app-container flex-col flex-center-both">
-                 <div id="myDiv"></div>
-                 <script type="text/javascript">
+    <main class="flex-col flex-center-both">
+
+        <div class="wrapper flex-col flex-center-cross">
+            <div id="home" class="app-container flex-col flex-center-both">
+                <div id="myDiv"></div>
+                
+                <div class="user-stats-container flex-row flex-center-cross">
+                  <div id="" class="user-stats">
+                  </div>
+                  <div id="" class="user-stats">
+                  </div>
+                </div>
+                <div class="stats-assets-divider"></div>
+                <div class="stats-assets-container">
+                  <div id="" class="user-asset">
+                  </div>
+                  <div id="" class="user-asset">
+                  </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script type="text/javascript">
                     Plotly.d3.csv('https://raw.githubusercontent.com/plotly/datasets/master/finance-charts-apple.csv', function(err, rows){
                       
                       function unpack(rows, key) {
@@ -122,10 +147,6 @@ yaxis: {
 Plotly.plot('myDiv', data, layout); 
 });
 </script>
-
-</div>
-</div>
-</main>
 
 <div id="voice-widget-container">
     <div id="voice-text-container" class="flex-row flex-center-both">

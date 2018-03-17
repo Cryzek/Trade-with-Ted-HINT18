@@ -2,18 +2,18 @@
 $bodyColor: #f5f6fa;
 
 $headerColor: #ffffff;
-$headerHeight: 60px;
+$headerHeight: 54px;
 $headerFontColor: #19233c;
 $headerFontSize: 24px;
 
 // This should be same as the one supplied in main.js for sideNav's menuWidth
-$navbarWidth: 300px;
+$navbarWidth: 280px;
 
 $mainHeight: calc(100vh - #{$headerHeight});
 
 // Voice widet variables
 $voiceWidgetContainerWidth: 100%;
-$voiceWidgetContainerHeight: 60px;
+$voiceWidgetContainerHeight: 54px;
 $voiceWidgetContainerBgColor: #ffffff;
 $voiceWidgetContainerBoxShadow: 0px -1px 1px 0 rgba(0,0,0,0.08);
 

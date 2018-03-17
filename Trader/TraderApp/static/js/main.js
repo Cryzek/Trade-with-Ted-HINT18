@@ -2,12 +2,14 @@ if(!jQuery) {
     throw new Error("jQuery is required for the app to run.");
 }
 
+var NAVBAR_WIDTH = 280;
+
 /* Global variables*/
 var recognition,
     final_transcript = '',
     recognizing = false,
     ignore_onend,
-    start_timestamp;
+    start_timestamp
 
 var two_line = /\n\n/g,
     one_line = /\n/g,
@@ -138,7 +140,7 @@ function handleCommandDecode(response) {
 
 function initMaterialize() {
     $("#nav-open").sideNav({
-        menuWidth: "300",
+        menuWidth: NAVBAR_WIDTH,
         draggable: true
     });
 };

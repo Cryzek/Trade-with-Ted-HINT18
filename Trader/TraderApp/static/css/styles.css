@@ -71,7 +71,7 @@ header {
     top: 0;
     left: 0;
     width: 100%;
-    height: 60px;
+    height: 54px;
     background-color: #ffffff;
     font-size: 24px;
     color: #19233c;
@@ -94,25 +94,25 @@ header {
     position: absolute;
     left: 0;
     color: #19233c;
-    width: 60px;
-    height: 60px; }
+    width: 54px;
+    height: 54px; }
 
 @media only screen and (min-width: 993px) {
     header {
-        left: calc(300px + 2px);
-        width: calc(100% - 300px - 4px);
+        left: calc(280px + 2px);
+        width: calc(100% - 280px - 4px);
         box-shadow: 0px 1px 1px 0 rgba(0, 0, 0, 0.08); } }
 
 .side-nav {
     background-color: #ffffff;
     color: #19233c;
-    padding-top: 60px; }
+    padding-top: 54px; }
     .side-nav #nav-close {
         position: absolute;
         right: 0;
         top: 0;
-        width: 60px;
-        height: 60px;
+        width: 54px;
+        height: 54px;
         color: #19233c; }
     .side-nav li > a {
         display: block;
@@ -161,22 +161,24 @@ header {
 
 /* Styles for the main section */
 main {
-    padding-top: 60px;
-    width: 100vw;
-    height: 100vh; }
+    padding-top: 54px;
+    width: 100%;
+    height: 100vh;
+    padding-bottom: 54px; }
     main .wrapper {
         width: 100%;
-        height: calc(100vh - 60px);
+        height: calc(100vh - 54px);
+        padding: 0 24px;
         overflow-x: hidden;
         overflow-y: auto; }
         main .wrapper::-webkit-scrollbar {
-            width: 0.5em;
+            width: 0.4em;
             border-radius: 1em; }
         main .wrapper::-webkit-scrollbar-track {
             background-color: #e3e8ec;
             border-radius: 1em; }
         main .wrapper::-webkit-scrollbar-thumb {
-            background-color: #ffffff;
+            background-color: #4c84ff;
             border-radius: 1em; }
 
 .app-container {
@@ -217,12 +219,35 @@ main {
     .timer > * {
         margin: 0 8px; }
 
+#home .user-stats-container {
+    width: 100%; }
+
+#home .app-card {
+    background-color: white; }
+
+#home .user-stats {
+    width: 240px;
+    height: 160px;
+    background-color: white; }
+
+#home .user-assets-container {
+    width: 100%; }
+
+#home .user-asset {
+    width: 240px;
+    height: 240px;
+    background-color: white; }
+
+#home .stats-assets-divider {
+    width: 90%;
+    height: 8px; }
+
 #voice-widget-container {
     position: fixed;
     left: 0;
     bottom: 0;
     width: 100%;
-    height: 60px;
+    height: 54px;
     background-color: transparent; }
     #voice-widget-container #voice-text-container {
         width: 100%;
@@ -248,14 +273,12 @@ main {
 
 @media only screen and (min-width: 993px) {
     #voice-widget-container {
-        left: calc(300px + 2px);
-        width: calc(100% - 300px - 4px); } }
+        left: calc(280px + 2px);
+        width: calc(100% - 280px - 4px); } }
 
 @media only screen and (min-width: 993px) {
     body {
-        padding-left: 300px; }
-    main {
-        width: calc(100vw - 300px - 4px); }
+        padding-left: 280px; }
     #toast-container {
         top: initial;
         bottom: 10%;
