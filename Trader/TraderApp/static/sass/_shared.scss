@@ -11,6 +11,12 @@ $navbarWidth: 300px;
 
 $mainHeight: calc(100vh - #{$headerHeight});
 
+// Voice widet variables
+$voiceWidgetContainerWidth: 100%;
+$voiceWidgetContainerHeight: 60px;
+$voiceWidgetContainerBgColor: #ffffff;
+$voiceWidgetContainerBoxShadow: 0px -1px 1px 0 rgba(0,0,0,0.08);
+
 // Font variables
 $fontColor: #19233c;
 $fontColorLight: #19233c;

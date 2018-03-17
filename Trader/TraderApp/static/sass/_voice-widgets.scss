@@ -1,0 +1,47 @@
+#voice-widget-container {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: $voiceWidgetContainerWidth;
+    height: $voiceWidgetContainerHeight;
+    background-color: transparent;
+
+    #voice-text-container {
+        width: 100%;
+        height: 100%;
+        background-color: $voiceWidgetContainerBgColor;
+        box-shadow: $voiceWidgetContainerBoxShadow;
+        overflow: hidden;
+
+    }
+
+    #voice-control-button-container {
+        position: absolute;
+        right: 0;
+        top: 0;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+
+        button {
+            font-size: 2rem;
+            background-color: $inputThemeColor;
+            box-shadow: $voiceWidgetContainerBoxShadow;
+            transition: all 0.25s;
+
+            &:hover {
+                box-shadow: 0px -1px 4px 2px rgba(0,0,0,0.28);
+            }
+        }
+
+        button.recording {
+            background-color: red;
+        }
+    }
+}
+
+@media only screen and (min-width: 993px) {
+    #voice-widget-container {
+        left: calc(#{$navbarWidth} + 2px);
+        width: calc(100% - #{$navbarWidth} - 4px);
+    }
+}
