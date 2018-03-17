@@ -6,3 +6,4 @@ Sell@sell_now
 Sell hours minutes hour minute@sell_later
 Show Plot graph week weeks@plot_graph_week
 Show Plot graph day days@plot_graph_day
+Send to@send

@@ -3,9 +3,7 @@ from django.http import JsonResponse
 from nltk import *
 from requests import get
 import numpy as np
-import datetime
-import re
-import json
+import re, requests, json, datetime
 
 # Create your views here.
 def profile(request):
@@ -13,7 +11,8 @@ def profile(request):
 
 def handleCommand(request):
     text=request.GET.get("text").lower()
-    retval=do_action(text)
+    current_user=request.user.get_username()
+    retval=do_action(text,current_user)
 
     return JsonResponse(retval)
 
@@ -75,7 +74,7 @@ def getDataByMinutes(CurrencyFrom,CurrencyTarget='INR',limit='12',interval='5'):
     return extracted
 
 #Functionalities
-def buy_now(text):
+def buy_now(text,user=None):
     mode="dollars"    #Load default mode from database
 
     pattern=r"dollar|dollars|rupees"
@@ -99,7 +98,7 @@ def buy_now(text):
     return {'quantity': quantity, 'what': what, 'mode': mode}
 
 
-def buy_later(text):
+def buy_later(text,user=None):
     pattern=r"\d+\s\bhours\b|\d+\s\bminutes\b|\d+\s\bminute\b|\d+\s\bhour\b"
     match=re.findall(pattern,text)[0].split(' ')
     time=float(match[0])
@@ -125,7 +124,7 @@ def buy_later(text):
 
     print(time,unit,quantity,what,mode)
 
-def sell_now(text):
+def sell_now(text,user=None):
     mode="dollars"    #Load default mode from database
 
     pattern=r"dollar|dollars|rupees"
@@ -146,7 +145,7 @@ def sell_now(text):
 
     print(quantity,what,mode)
 
-def sell_later(text):
+def sell_later(text,user=None):
     pattern=r"\d+\s\bhours\b|\d+\s\bminutes\b|\d+\s\bminute\b|\d+\s\bhour\b"
     match=re.findall(pattern,text)[0].split(' ')
     time=float(match[0])
@@ -172,7 +171,7 @@ def sell_later(text):
 
     print(time,unit,quantity,what,mode)
 
-def plot_graph_week(text):
+def plot_graph_week(text,user=None):
     pattern=r"\bbitcoin\b|\bbitcoins\b|\bether\b|\bripple\b|\bethereum\b"
     match=re.findall(pattern,text)[0]
 
@@ -200,7 +199,7 @@ def plot_graph_week(text):
     data=getDataByDay(currencyFrom,currencyTo,duration*7)
     return graph_json(data)
 
-def plot_graph_day(text):
+def plot_graph_day(text,user=None):
     pattern=r"\bbitcoin\b|\bbitcoins\b|\bether\b|\bripple\b|\bethereum\b"
     match=re.findall(pattern,text)[0]
 
@@ -234,8 +233,28 @@ def compare():
 def show_transactions():
     pass
 
+def send(text,user=None):
+
+    pattern=r"\d+"
+    match=re.findall(pattern,text)[0]
+    amount=float(match)
+
+    users=get_from_file('users.txt')
+    print(users)
+
+    for each in users:
+        each=each.split('\n')[0]
+        if (each in text):
+            target=each
+
+    server="http://localhost:5000/txion"
+    post_data={'from':user,'to':target,'amount':amount}
+    r=requests.post(server,data=post_data)
+
+    return post_data
+
 #Match Predefined actions
-def do_action(text,type='relation', corpus='webbase'):
+def do_action(text,user,type='relation', corpus='webbase'):
     url="http://swoogle.umbc.edu/SimService/GetSimilarity"
 
     possible_actions=get_from_file('predefined_actions.txt')  #Get all sentences from database
@@ -255,7 +274,7 @@ def do_action(text,type='relation', corpus='webbase'):
     possibles.update(locals())
     caller=possibles.get(func[action])
 
-    return caller(text)
+    return caller(text,user)
 
 #Get all predefined actions
 def get_from_file(filename):
