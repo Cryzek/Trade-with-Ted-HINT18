@@ -23,7 +23,9 @@ var $body,
     $voiceWidgetContainer,
     $startButton,
     $voiceText,
-    $navToggleClose;
+    $navToggleClose,
+    $appModal,
+    $modalClose;
 
 $(document).ready(init);
 
@@ -45,7 +47,9 @@ function initElements() {
     $main = $body.find("main");
     $sideNav = $body.find(".side-nav");
     $voiceWidgetContainer = $body.find("#voice-widget-container");
-    
+    $appModal = $body.find(".app-modal");
+    $modalClose = $appModal.find(".modal-close");
+
     $startButton = $voiceWidgetContainer.find("#voice-control-button-container button");
     
     $voiceText = $voiceWidgetContainer.find("#voice-text-container p");
@@ -168,10 +172,11 @@ function initMicrophone() {
         return s.replace(first_char, function(m) { return m.toUpperCase(); });
     }
 
-    function showInfo(s) {
-        if (s) {
-            Materialize.toast(s, 1000);
-        }
+};
+
+function showInfo(s) {
+    if (s) {
+        Materialize.toast(s, 1000);
     }
 };
 
@@ -188,72 +193,83 @@ function handleCommandDecode(response) {
     if(data.open) {
         plotGraph(data);
     }
+    else if(data.quantity) {
+        var message = `Bought ${data.quantity} ${data.what}`;
+        say(message);
+        showInfo(message, 1000);
+    }
 };
 
 function plotGraph(response) {
-
-    Plotly.d3.csv('https://raw.githubusercontent.com/plotly/datasets/master/finance-charts-apple.csv', 
-    function(err, rows){
-
-        function unpack(rows, key) {
-            return rows.map(function(row) { 
-                return row[key]; 
-            });
-        }
-
-        var $divForGraph = $("#div-for-graph");
-
-        var trace = {
-                x:['2018-03-17 00:50:00','2018-03-17 00:55:00'], 
-                close: [43950.03,43991.96], 
-                high: [43992.34,44022.23],  
-                low: [41385.71,43949.58], 
-                open:[ 41397.09,44016.17],
-                // cutomise colors 
-                increasing: {line: {color: 'black'}},
-                decreasing: {line: {color: 'red'}},
-
-                type: 'candlestick', 
-                xaxis: 'x', 
-                yaxis: 'y'
-            };
-
-        var data = [response];
-
-        var layout = {
-            dragmode: 'zoom', 
-            showlegend: false, 
-            xaxis: {
-                autorange: true, 
-                title: 'Date',
-                rangeselector: {
-                    x: 0,
-                    y: 1.2,
-                    xanchor: 'left',
-                    font: {size:8},
-                    buttons: [{
-                        step: 'month',
-                        stepmode: 'backward',
-                        count: 1,
-                        label: '1 month'
-                    }, {
-                            step: 'month',
-                            stepmode: 'backward',
-                            count: 6,
-                            label: '6 months'
-                    }, {
-                            step: 'all',
-                            label: 'All dates'
-                    }]
-                }
-            }, 
-            yaxis: {
-                autorange: true, 
-            }
+    var trace = {
+            x: response.x, 
+            close: response.close, 
+            high: response.high,  
+            low: response.low, 
+            open: response.open,
+            // cutomise colors 
+            increasing: {line: {color: 'black'}},
+            decreasing: {line: {color: 'red'}},
+            type: 'candlestick', 
+            xaxis: 'x', 
+            yaxis: 'y'
         };
 
-        Plotly.plot('div-for-graph', data, layout);
-    });
+    var data = [trace];
+
+    var layout = {
+        dragmode: 'zoom', 
+        showlegend: false, 
+        xaxis: {
+            autorange: true, 
+            title: 'Date',
+            rangeselector: {
+                x: 0,
+                y: 1.2,
+                xanchor: 'left',
+                font: {size:8},
+                buttons: [{
+                    step: 'month',
+                    stepmode: 'backward',
+                    count: 1,
+                    label: '1 month'
+                }, {
+                        step: 'month',
+                        stepmode: 'backward',
+                        count: 6,
+                        label: '6 months'
+                }, {
+                        step: 'all',
+                        label: 'All dates'
+                }]
+            }
+        }, 
+        yaxis: {
+            autorange: true, 
+        }
+    };
+
+    Plotly.plot('graph-modal-content', data, layout);
+
+    // if($appModal.hasClass("open") == false) {
+        var tl = new TimelineMax();
+        tl
+        .set($appModal, {
+            opacity: 0,
+            display: "flex"
+        })
+        .fromTo($appModal, 0.5, {
+            opacity: 0,
+            y: 240
+        }, {
+            opacity: 1,
+            y: 0
+        });
+    // }
+
+    var message = `Here you go`;
+    showInfo(message);
+    say(message);
 };
 
 function initEvents() {
@@ -261,6 +277,8 @@ function initEvents() {
     $navToggleClose.on("click", closeNavBar);
 
     $startButton.on("click", startRecording);
+
+    $modalClose.on("click", handleModalClose);
 };
 
 /* Functions used as event handlers*/
@@ -285,4 +303,25 @@ function startRecording(event) {
     recognition.start();
     ignore_onend = false;
     start_timestamp = event.timeStamp;
+};
+
+function handleModalClose(ev) {
+    var tl = new TimelineMax();
+
+    tl.
+    to($appModal, 0.5, {
+        opacity: 0,
+        y: 240
+    })
+    .set($appModal, {
+        "display": "none"
+    });
+
+    $appModal.find(".modal-content").html("");
+};
+
+function say(message) {
+    console.log(message);
+    var msg = new SpeechSynthesisUtterance(message);
+    window.speechSynthesis.speak(msg);
 };

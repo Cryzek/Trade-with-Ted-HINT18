@@ -5,6 +5,7 @@
     width: $voiceWidgetContainerWidth;
     height: $voiceWidgetContainerHeight;
     background-color: transparent;
+    z-index: 100;
 
     #voice-text-container {
         width: 100%;

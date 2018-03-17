@@ -32,7 +32,7 @@ $font: "Museo Sans", "Segoe UI Light", "Verdana";
 @mixin toastContainerStyles {
     top: initial;
     bottom: 10%;
-    left: initial;
+    left: 50%;
     right: initial;
 }
 

@@ -75,7 +75,8 @@ header {
     background-color: #ffffff;
     font-size: 24px;
     color: #19233c;
-    text-transform: uppercase; }
+    text-transform: uppercase;
+    z-index: 10; }
     header .title {
         height: 100%;
         display: -webkit-box;
@@ -166,6 +167,7 @@ main {
     height: 100vh;
     padding-bottom: 54px; }
     main .wrapper {
+        position: relative;
         width: 100%;
         height: calc(100vh - 54px);
         padding: 0 24px;
@@ -304,7 +306,8 @@ main {
     bottom: 0;
     width: 100%;
     height: 54px;
-    background-color: transparent; }
+    background-color: transparent;
+    z-index: 100; }
     #voice-widget-container #voice-text-container {
         width: 100%;
         height: 100%;
@@ -363,17 +366,65 @@ body#login {
             left: 0;
             width: 100%; } }
 
+.app-modal {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: calc(100% - 4px);
+    height: calc(100% - 4px);
+    background-color: white;
+    padding-top: 56px;
+    box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.01);
+    transform: translateY(-100%);
+    z-index: 5; }
+    .app-modal .modal-close {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+        flex-direction: row;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%; }
+    .app-modal .modal-content {
+        width: 90%;
+        height: 90%; }
+
 @media only screen and (min-width: 993px) {
     body {
         padding-left: 280px; }
     #toast-container {
         top: initial;
         bottom: 10%;
-        left: initial;
+        left: 50%;
         right: initial; } }
 
 #toast-container {
     top: initial;
     bottom: 10%;
-    left: initial;
+    left: 50%;
     right: initial; }

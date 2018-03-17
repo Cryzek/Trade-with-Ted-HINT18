@@ -37,6 +37,7 @@ main {
     padding-bottom: $voiceWidgetContainerHeight;
 
     .wrapper {
+        position: relative;
         width: 100%;
         height: $mainHeight;
         padding: 0 24px;
@@ -113,6 +114,8 @@ main {
 @import "voice-widgets";
 
 @import "login";
+
+@import "modal";
 
 @media only screen and (min-width: 993px) {
     body {
