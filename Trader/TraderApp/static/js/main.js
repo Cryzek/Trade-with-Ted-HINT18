@@ -9,7 +9,9 @@ var recognition,
     final_transcript = '',
     recognizing = false,
     ignore_onend,
-    start_timestamp
+    start_timestamp,
+    start,
+    end;
 
 var two_line = /\n\n/g,
     one_line = /\n/g,
@@ -107,6 +109,7 @@ function initMicrophone() {
         recognition.interimResults = true;
 
         recognition.onstart = function() {
+            start = Date.now();
             recognizing = true;
             showInfo('Speak Now');
         };
@@ -154,6 +157,17 @@ function initMicrophone() {
             final_transcript = capitalize(final_transcript);
             var transcript = linebreak(final_transcript) + linebreak(interim_transcript); 
             $voiceText.text(transcript);
+
+            end = Date.now();
+
+            if(end - start > 1000) {
+                sendCommand(final_transcript);
+                final_transcript = "";
+                // $voiceText.text("");
+            }   
+            else {
+                start = Date.now();
+            }
         };
     }
 
@@ -171,7 +185,6 @@ function initMicrophone() {
     function capitalize(s) {
         return s.replace(first_char, function(m) { return m.toUpperCase(); });
     }
-
 };
 
 function showInfo(s) {
@@ -197,6 +210,14 @@ function handleCommandDecode(response) {
         var message = `Bought ${data.quantity} ${data.what}`;
         say(message);
         showInfo(message, 1000);
+    }
+    else if(data.transactions) {
+        showTable(data);
+    }
+    else if(data.amount) {
+        var message = `You successfully sent ${data.amount} of ${data.coin} to ${data.receiver}`;
+        say(message);
+        showInfo(message);
     }
 };
 
@@ -272,6 +293,55 @@ function plotGraph(response) {
     say(message);
 };
 
+function showTable(response) {
+    $modalContent = $(".modal-content");
+    $modalContent.addClass("table");
+    $modalContent.append($(`<div class='table-heading flex-row flex-center-both'><p>Sender</p><p>Receiver</p><p>Asset</p><p>Units</p><p>Date</p></div>`))
+    for(var i = 0;i < response.size;i++) {
+        var sender, receiver, asset, units, date, type;
+        sender = response[i][0];
+        receiver = response[i][1];
+        asset = response[i][2];
+        units = response[i][3];
+        date = response[i][4];
+        type = response[i][5];
+        
+        var $div = $("<div class='flex-row flex-center-both table-row'></div>");
+        $div.addClass(type);
+        var $sender = $(`<p class="name">${sender}</p>`),
+            $receiver = $(`<p class="name">${receiver}</p>`),
+            $asset = $(`<p class="asset">${asset}</p>`),
+            $units = $(`<p class="units">${units}</p>`),
+            $date = $(`<p class="date">${date}</p>`);
+
+        $div.append($sender);
+        $div.append($receiver);
+        $div.append($asset);
+        $div.append($units);
+        $div.append($date);
+
+        $modalContent.append($div);
+    }
+
+    var tl = new TimelineMax();
+    tl
+    .set($appModal, {
+        opacity: 0,
+        display: "flex"
+    })
+    .fromTo($appModal, 0.5, {
+        opacity: 0,
+        y: 240
+    }, {
+        opacity: 1,
+        y: 0
+    });
+
+    var message = `Here you go`;
+    showInfo(message);
+    say(message);
+}
+
 function initEvents() {
 
     $navToggleClose.on("click", closeNavBar);
@@ -290,8 +360,8 @@ function closeNavBar(event) {
 
 function startRecording(event) {
     if (recognizing) {
-        sendCommand(final_transcript);
-        console.log(final_transcript);
+        // sendCommand(final_transcript);
+        // console.log(final_transcript);
         recognition.stop();
         $startButton.removeClass("recording");
         return;
@@ -313,11 +383,13 @@ function handleModalClose(ev) {
         opacity: 0,
         y: 240
     })
+    .call(function() {
+        $appModal.find(".modal-content").html("");
+    })
     .set($appModal, {
         "display": "none"
     });
 
-    $appModal.find(".modal-content").html("");
 };
 
 function say(message) {

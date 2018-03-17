@@ -4,6 +4,7 @@ Purchase hours minutes hour minute@buy_later
 Buy hours minutes hour minute@buy_later
 Sell@sell_now
 Sell hours minutes hour minute@sell_later
-Show Plot graph week weeks@plot_graph_week
-Show Plot graph day days@plot_graph_day
+Plot graph week weeks@plot_graph_week
+Plot graph day days@plot_graph_day
 Send to@send
+Show transactions@get_transactions

@@ -29,7 +29,11 @@
         <li>
             <div class="user-view flex-col flex-center-both">
                 <!-- <img src='<%=userImage%>'> -->
-                <span class="name">Trader Ted</span>
+                <span class="name">
+                    {% if user.is_authenticated %}
+                        Hi {{ user.username }}!
+                    {% endif %}
+                </span>
             </div>
         </li>
         <li>
@@ -97,6 +101,20 @@
                         <p class="change">-9% (24h)</p>
                     </div>
                     <div id="" class="app-card user-asset">
+                        <span class="asset-image">
+                            <i class="material-icons large">monetization_on</i>
+                        </span>
+                        <p class="asset-name">Bitcoin (BTC)</p>
+                        <p class="current-price">980.89$</p>
+                        <p class="change">-19% (24h)</p>
+                    </div>
+                    <div id="" class="app-card user-asset">
+                        <span class="asset-image">
+                            <i class="material-icons large">monetization_on</i>
+                        </span>
+                        <p class="asset-name">Ted Coin (TDC)</p>
+                        <p class="current-price">0.00001$</p>
+                        <p class="change">9% (24h)</p>
                     </div>
                 </div>                
             </div>

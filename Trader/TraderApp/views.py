@@ -4,10 +4,13 @@ from nltk import *
 from requests import get
 import numpy as np
 import re, requests, json, datetime
+from TraderApp.models import Person,Asset,Transaction
+from django.contrib.auth.models import User
+from decimal import Decimal
 
 # Create your views here.
 def profile(request):
-	return render(request,'trader/index.html')
+	return render(request,'trader/index.html', )
 
 def handleCommand(request):
     text=request.GET.get("text").lower()
@@ -172,6 +175,7 @@ def sell_later(text,user=None):
     print(time,unit,quantity,what,mode)
 
 def plot_graph_week(text,user=None):
+    print("Weeks Graph Plotting")
     pattern=r"\bbitcoin\b|\bbitcoins\b|\bether\b|\bripple\b|\bethereum\b"
     match=re.findall(pattern,text)[0]
 
@@ -200,6 +204,7 @@ def plot_graph_week(text,user=None):
     return graph_json(data)
 
 def plot_graph_day(text,user=None):
+    print("Days Graph Plotting")
     pattern=r"\bbitcoin\b|\bbitcoins\b|\bether\b|\bripple\b|\bethereum\b"
     match=re.findall(pattern,text)[0]
 
@@ -233,11 +238,23 @@ def compare():
 def show_transactions():
     pass
 
-def send(text,user=None):
+def send(text,sender=None):
 
     pattern=r"\d+"
     match=re.findall(pattern,text)[0]
     amount=float(match)
+
+    pattern=r"\bbitcoin\b|\bbitcoins\b|\bether\b|\bripple\b|\bethereum\b"
+    match=re.findall(pattern,text)[0]
+
+    #get list of currencies from file
+    currencies=get_from_file('currencies.txt')
+    currencies=[x.split('\n')[0] for x in currencies]
+
+    for each in currencies:
+        each=each.split(' ')
+        if (each[0]==match):
+            coin=each[1]
 
     users=get_from_file('users.txt')
     print(users)
@@ -248,10 +265,58 @@ def send(text,user=None):
             target=each
 
     server="http://localhost:5000/txion"
-    post_data={'from':user,'to':target,'amount':amount}
+    post_data={'from':sender,'to':target,'amount':amount, 'coin':coin}
+
+    print(post_data)
     r=requests.post(server,data=post_data)
 
+    user_from=User.objects.get(username=sender)
+    user_to=User.objects.get(username=target)
+
+    person_from=Person.objects.get(user=user_from)
+    person_to=Person.objects.get(user=user_to)
+
+    asset=Asset.objects.get(asset_id=coin)
+
+    amount=Decimal(str(amount))
+
+    txn=Transaction.objects.create(user_from=person_from,
+                                    user_to=person_to,
+                                    asset=asset,
+                                    units=amount)
+
+    txn.save()
+
     return post_data
+
+def get_transactions(text,user=None):
+
+    # transactions=Transaction.objects.all()
+    user=User.objects.get(username=user)
+    person=Person.objects.get(user=user)
+    
+    transactions={}
+    key=0
+
+    try:
+        debit=Transaction.objects.filter(user_from=person)
+        for d in debit:
+            transactions[key]=[str(d.user_from),str(d.user_to),str(d.asset),str(d.units),str(d.date),'debit']
+            key=key+1
+    except:
+        print("No Debit Transactions")
+
+    try:
+        credit=Transaction.objects.filter(user_to=person)
+        for c in credit:
+            transactions[key]=[str(c.user_from),str(c.user_to),str(c.asset),str(c.units),str(c.date),'credit']
+            key=key+1
+    except:
+        print("No Credit Transactions")
+
+    transactions["transactions"] = True;
+    transactions["size"] = key
+    return transactions
 
 #Match Predefined actions
 def do_action(text,user,type='relation', corpus='webbase'):

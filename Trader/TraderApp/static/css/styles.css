@@ -377,9 +377,6 @@ body#login {
     -webkit-box-pack: center;
     -ms-flex-pack: center;
     justify-content: center;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
     position: absolute;
     top: 2px;
     left: 2px;
@@ -413,6 +410,35 @@ body#login {
     .app-modal .modal-content {
         width: 90%;
         height: 90%; }
+
+.modal-content.table {
+    width: 90%;
+    height: auto;
+    align-items: initial; }
+    .modal-content.table p.title {
+        text-align: center;
+        text-transform: uppercase;
+        text-decoration: underline; }
+    .modal-content.table .table-heading {
+        font-weight: bold;
+        margin-bottom: 16px;
+        justify-content: space-around;
+        color: #4c84ff; }
+        .modal-content.table .table-heading p {
+            text-decoration: underline; }
+    .modal-content.table .table-row {
+        width: 100%;
+        margin-bottom: 16px;
+        justify-content: space-around;
+        padding: 4px 0; }
+    .modal-content.table .table-row.debit {
+        background-color: rgba(255, 0, 0, 0.3); }
+    .modal-content.table .table-row.credit {
+        background-color: rgba(0, 255, 0, 0.3); }
+    .modal-content.table p {
+        text-align: center;
+        text-transform: capitalize;
+        min-width: 160px; }
 
 @media only screen and (min-width: 993px) {
     body {

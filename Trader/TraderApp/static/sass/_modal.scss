@@ -1,7 +1,6 @@
 .app-modal {
     @include flexRow;
     @include flexCenterMain;
-    @include flexCenterCross;
     position: absolute;
     top: 2px;
     left: 2px;
