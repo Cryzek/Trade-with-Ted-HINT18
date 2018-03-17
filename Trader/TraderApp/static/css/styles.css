@@ -1,0 +1,235 @@
+* {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0;
+    border: 0; }
+
+/* Helper Styles */
+.flex-row {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row; }
+
+.flex-col {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column; }
+
+.flex-center-main {
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center; }
+
+.flex-center-cross {
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center; }
+
+.flex-center-both {
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center; }
+
+/* Font includes, Variables, mixins */
+/* Font includes */
+@font-face {
+    src: url("../fonts/MuseoSans_500.otf");
+    font-family: "Museo Sans"; }
+
+button.btn {
+    background-color: #4c84ff;
+    min-width: 160px;
+    border-radius: 999em;
+    padding: 0 8px;
+    text-align: center;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    text-transform: capitalize; }
+
+/* Styles for the document */
+body {
+    width: 100%;
+    height: 100vh;
+    color: black;
+    background-color: #f5f6fa;
+    font-family: "Museo Sans", "Segoe UI Light", "Verdana";
+    letter-spacing: 1px; }
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background-color: #ffffff;
+    font-size: 24px;
+    color: #19233c;
+    text-transform: uppercase; }
+    header .title {
+        height: 100%;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center; }
+        header .title a {
+            height: 50%; }
+            header .title a img {
+                width: auto;
+                height: 100%; }
+
+#nav-open {
+    position: absolute;
+    left: 0;
+    color: #19233c;
+    width: 60px;
+    height: 60px; }
+
+@media only screen and (min-width: 993px) {
+    header {
+        left: calc(300px + 2px);
+        width: calc(100% - 300px - 4px);
+        box-shadow: 0px 1px 1px 0 rgba(0, 0, 0, 0.08); } }
+
+.side-nav {
+    background-color: #ffffff;
+    color: #19233c;
+    padding-top: 60px; }
+    .side-nav #nav-close {
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 60px;
+        height: 60px;
+        color: #19233c; }
+    .side-nav li > a {
+        display: block;
+        width: 100%;
+        text-indent: 10%;
+        color: #696f7b;
+        -webkit-transition: color 0.25s;
+        transition: color 0.25s; }
+        .side-nav li > a i.material-icons {
+            margin-right: 8px;
+            -webkit-transition: color 0.25s;
+            transition: color 0.25s; }
+        .side-nav li > a:hover {
+            color: #19233c; }
+            .side-nav li > a:hover i.material-icons {
+                color: #19233c; }
+    .side-nav .user-view {
+        position: relative;
+        width: 100%;
+        height: auto;
+        margin-bottom: 24px; }
+        .side-nav .user-view:before {
+            content: "";
+            position: absolute;
+            bottom: -4px;
+            left: 20%;
+            width: 60%;
+            height: 2px;
+            border-radius: 4px;
+            background-color: #19233c; }
+        .side-nav .user-view img {
+            width: 60%;
+            height: auto;
+            border-radius: 50%; }
+        .side-nav .user-view .name {
+            font-weight: bold;
+            text-transform: uppercase; }
+
+@media only screen and (min-width: 993px) {
+    #slide-out.side-nav {
+        box-shadow: 1px 0px 1px 0 rgba(0, 0, 0, 0.08); } }
+
+.site-title {
+    text-transform: capitalize;
+    font-size: 18px; }
+
+/* Styles for the main section */
+main {
+    padding-top: 60px;
+    width: 100vw;
+    height: 100vh; }
+    main .wrapper {
+        width: 100%;
+        height: calc(100vh - 60px);
+        overflow-x: hidden;
+        overflow-y: auto; }
+        main .wrapper::-webkit-scrollbar {
+            width: 0.5em;
+            border-radius: 1em; }
+        main .wrapper::-webkit-scrollbar-track {
+            background-color: #e3e8ec;
+            border-radius: 1em; }
+        main .wrapper::-webkit-scrollbar-thumb {
+            background-color: #ffffff;
+            border-radius: 1em; }
+
+.app-container {
+    width: calc(100% - 0.1em);
+    height: auto;
+    padding: 2.5vw 2.5vw 0 2.5vw;
+    -ms-flex-negative: 0;
+    flex-shrink: 0; }
+    .app-container > * {
+        -ms-flex-negative: inherit;
+        flex-shrink: inherit; }
+    .app-container .title {
+        position: relative;
+        color: #19233c;
+        margin-bottom: 3vh;
+        margin-top: 6vh; }
+        .app-container .title:before {
+            content: "";
+            position: absolute;
+            bottom: -4px;
+            left: -4%;
+            width: 108%;
+            height: 2px;
+            border-radius: 2px;
+            background-color: #19233c;
+            -webkit-transition: width 0.25s;
+            transition: width 0.25s; }
+
+.timer {
+    -ms-flex-pack: distribute;
+    justify-content: space-around;
+    min-height: 40px;
+    min-width: 200px;
+    background-color: #e6e3e3;
+    border-radius: 20px;
+    margin-bottom: 16px;
+    padding: 8px 26px; }
+    .timer > * {
+        margin: 0 8px; }
+
+@media only screen and (min-width: 993px) {
+    body {
+        padding-left: 300px; }
+    main {
+        width: calc(100vw - 300px - 4px); }
+    #toast-container {
+        top: initial;
+        bottom: 10%;
+        left: initial;
+        right: initial; } }
+
+#toast-container {
+    top: initial;
+    bottom: 10%;
+    left: initial;
+    right: initial; }

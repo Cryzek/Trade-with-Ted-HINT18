@@ -1,0 +1,47 @@
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: $headerHeight;
+    background-color: $headerColor;
+    font-size: $headerFontSize;
+    color: $headerFontColor;
+    text-transform: uppercase;
+
+    .title {
+        height: 100%;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
+
+        a {
+            height: 50%;
+
+            img {
+                width: auto;
+                height: 100%;
+            }
+        }
+    }
+
+}
+
+#nav-open {
+    position: absolute;
+    left: 0;
+    color: $headerFontColor;
+    width: $headerHeight;
+    height: $headerHeight;
+}
+
+@media only screen and (min-width: 993px) {
+    header {
+        left: calc(#{$navbarWidth} + 2px);
+        width: calc(100% - #{$navbarWidth} - 4px);
+        box-shadow: 0px 1px 1px 0 rgba(0,0,0,0.08);
+    }   
+}

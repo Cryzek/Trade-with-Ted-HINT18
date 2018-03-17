@@ -1,0 +1,42 @@
+ // Variables
+$bodyColor: #f5f6fa;
+
+$headerColor: #ffffff;
+$headerHeight: 60px;
+$headerFontColor: #19233c;
+$headerFontSize: 24px;
+
+// This should be same as the one supplied in main.js for sideNav's menuWidth
+$navbarWidth: 300px;
+
+$mainHeight: calc(100vh - #{$headerHeight});
+
+// Font variables
+$fontColor: #19233c;
+$fontColorLight: #19233c;
+$inputThemeColor: #4c84ff;
+$font: "Museo Sans", "Segoe UI Light", "Verdana";
+
+/* Font includes */
+@font-face {
+    src: url("../fonts/MuseoSans_500.otf");
+    font-family: "Museo Sans";
+}
+
+@mixin toastContainerStyles {
+    top: initial;
+    bottom: 10%;
+    left: initial;
+    right: initial;
+}
+
+button.btn {
+    background-color: $inputThemeColor;
+    min-width: 160px;
+    border-radius: 999em;
+    padding: 0 8px;
+    text-align: center;
+    -webkit-box-shadow: none;
+            box-shadow: none;
+    text-transform: capitalize;
+}
